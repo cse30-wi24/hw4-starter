@@ -10,8 +10,8 @@ typedef uint8_t Cell;
 typedef struct {
     Cell *buf1;        /* pointer to first life board buffer */
     Cell *buf2;        /* pointer to ansecond life board buffer */
-    uint32_t nrows;    /* number of rows in the life board */
-    uint32_t ncols;    /* number of cols in the life board */
+    size_t nrows;    /* number of rows in the life board */
+    size_t ncols;    /* number of cols in the life board */
     Cell *buffer;      /* pointer to the current life board's buffer */
     Cell *next_buffer; /* pointer to the next iteration's board buffer */
     unsigned int gen;  /* generation number */
@@ -23,7 +23,7 @@ extern void clear_board(Board *board);
 extern void swap_buffers(Board *board);
 extern void sim_step(Board *board, unsigned int steps);
 extern void set_sim(Board *board, void (*sim)(Board *board, unsigned int steps));
-extern uint32_t get_index(uint32_t ncols, uint32_t row,
-                          uint32_t col); // get index of (row,col) in 1D buffer
+extern size_t get_index(size_t ncols, size_t row,
+                          size_t col); // get index of (row,col) in 1D buffer
 
 #endif // _BOARD_H

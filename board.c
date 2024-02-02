@@ -61,7 +61,7 @@ void swap_buffers(Board *board)
 /**
  * get a cell index
  */
-uint32_t get_index(uint32_t ncols, uint32_t row, uint32_t col)
+size_t get_index(size_t ncols, size_t row, size_t col)
 {
     return 0; // TODO: Delete this line and implement this function.
 }

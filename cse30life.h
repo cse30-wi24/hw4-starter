@@ -24,25 +24,25 @@ extern double get_secs();
  *  predefined shapes
  */
 //! create a glider
-extern void glider(uint8_t *buf, uint32_t cols, uint32_t v, uint32_t h);
+extern void glider(uint8_t *buf, size_t cols, size_t v, size_t h);
 
 //! create a toad
-extern void toad(uint8_t *buf, uint32_t cols, uint32_t v, uint32_t h);
+extern void toad(uint8_t *buf, size_t cols, size_t v, size_t h);
 
 //! create an acorn
-extern void acorn(uint8_t *buf, uint32_t cols, uint32_t v, uint32_t h);
+extern void acorn(uint8_t *buf, size_t cols, size_t v, size_t h);
 
 //! create an oscillator horiz orient
-extern void oscillator(uint8_t *buf, uint32_t cols, uint32_t v, uint32_t h);
+extern void oscillator(uint8_t *buf, size_t cols, size_t v, size_t h);
 
 //! create an oscillator vertical
-extern void oscillator_vert(uint8_t *buf, uint32_t cols, uint32_t v, uint32_t h);
+extern void oscillator_vert(uint8_t *buf, size_t cols, size_t v, size_t h);
 
 /**
  * board plotting/printing
  */
-extern void print_board(uint8_t *buf, uint32_t rows, uint32_t cols, uint32_t gen);
+extern void print_board(uint8_t *buf, size_t rows, size_t cols, size_t gen);
 extern void clear_screen();
 
 //! dump board to a file
-extern void dump_board(uint8_t *buf, uint32_t rows, uint32_t cols, const char *dump);
+extern void dump_board(uint8_t *buf, size_t rows, size_t cols, const char *dump);
