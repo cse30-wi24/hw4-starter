@@ -3,17 +3,13 @@
 /**
  * gets x mod N (works for negative numbers as well! Use this instead of %)
  */
-size_t mod(int x, size_t N)
-{
-    return (x + x / N * N) % N;
-}
+size_t mod(int x, size_t N) { return (x + x / N * N) % N; }
 
 /**
  * process one row of the board
  */
-static void do_row(Cell *dest, Cell *src, size_t row, size_t rows, size_t cols)
-{
-    // TODO
+static void do_row(Cell *dest, Cell *src, size_t row, size_t rows, size_t cols) {
+	// TODO
 }
 
 /**
@@ -23,7 +19,6 @@ static void do_row(Cell *dest, Cell *src, size_t row, size_t rows, size_t cols)
  *   calculate the next board
  *   swap current and next
  */
-void sim_loop(Board *board, unsigned int steps)
-{
-    // TODO
+void sim_loop(Board *board, unsigned int steps) {
+	// TODO
 }

@@ -25,9 +25,8 @@
  * - close the file
  * - return the boards pointer
  */
-Board *create_board(const char *filename)
-{
-    return NULL; // TODO: Delete this line and implement function
+Board *create_board(const char *filename) {
+	return NULL; // TODO: Delete this line and implement function
 }
 
 /**
@@ -37,31 +36,27 @@ Board *create_board(const char *filename)
  * the pointer to the boards structure should be set to NULL
  * after the memory is freed.
  */
-void delete_board(Board **bpp)
-{
-    // TODO
+void delete_board(Board **bpp) {
+	// TODO
 }
 
 /**
  * set all the Cells to 0 - STUDENT
  */
-void clear_board(Board *board)
-{
-    // TODO
+void clear_board(Board *board) {
+	// TODO
 }
 
 /**
  * swap the current and next buffers
  */
-void swap_buffers(Board *board)
-{
-    // TODO
+void swap_buffers(Board *board) {
+	// TODO
 }
 
 /**
  * get a cell index
  */
-size_t get_index(size_t ncols, size_t row, size_t col)
-{
-    return 0; // TODO: Delete this line and implement this function.
+size_t get_index(size_t ncols, size_t row, size_t col) {
+	return 0; // TODO: Delete this line and implement this function.
 }
