@@ -6,34 +6,32 @@
 #include <strings.h>
 
 typedef struct {
-    char *filename;
+	char *filename;
 } Args;
 
 /**
  * help printing routine
  * print descrption of all the options as well as interactive commands.
  */
-void help_and_exit(const char *name)
-{
-    printf("Usage: %s <file>\n", name);
-    printf("Interactive commands:\n");
-    printf("\td filename: dump the current state to filename\n");
-    printf("\tn N: run the simulation N steps without displaying intermediate results\n");
-    printf("\ts N: run the simulation N steps displaying intermediate results\n");
-    printf("\tq: quit\n");
-    exit(EXIT_FAILURE);
+void help_and_exit(const char *name) {
+	printf("Usage: %s <file>\n", name);
+	printf("Interactive commands:\n");
+	printf("\td filename: dump the current state to filename\n");
+	printf("\tn N: run the simulation N steps without displaying intermediate results\n");
+	printf("\ts N: run the simulation N steps displaying intermediate results\n");
+	printf("\tq: quit\n");
+	exit(EXIT_FAILURE);
 }
 
 /**
  * parse the input options
  *
  */
-void parse_opts(int argc, char **argv, Args *args)
-{
-    if (argc != 2) {
-        help_and_exit(argv[0]);
-    }
-    args->filename = argv[1];
+void parse_opts(int argc, char **argv, Args *args) {
+	if (argc != 2) {
+		help_and_exit(argv[0]);
+	}
+	args->filename = argv[1];
 }
 
 /**
@@ -48,75 +46,74 @@ void parse_opts(int argc, char **argv, Args *args)
  *     simulate for the specified number of cycles
  *     display
  */
-int main(int argc, char **argv)
-{
-    Board *boards;
-    Args args;
+int main(int argc, char **argv) {
+	Board *boards;
+	Args args;
 
-    parse_opts(argc, argv, &args);
+	parse_opts(argc, argv, &args);
 
-    if ((boards = create_board(args.filename)) == NULL) {
-        fprintf(stderr, "Failed to process file %s\n", args.filename);
-        exit(EXIT_FAILURE);
-    }
+	if ((boards = create_board(args.filename)) == NULL) {
+		fprintf(stderr, "Failed to process file %s\n", args.filename);
+		exit(EXIT_FAILURE);
+	}
 
-    printf("simulating life board %u rows %u cols\n", boards->nrows, boards->ncols);
-    fflush(stdout);
+	printf("simulating life board %u rows %u cols\n", boards->nrows, boards->ncols);
+	fflush(stdout);
 
-    bool done = false;
-    int step_size = 1; // number of steps that sim(..) will simulate <= quanta
-    int quanta = 1;    // total number of steps to simulate
-    const int ibuf_size = 128;
+	bool done = false;
+	int step_size = 1; // number of steps that sim(..) will simulate <= quanta
+	int quanta = 1; // total number of steps to simulate
+	const int ibuf_size = 128;
 
-    while (!done) {
-        char ibuf[ibuf_size];
+	while (!done) {
+		char ibuf[ibuf_size];
 
-        clear_screen();
-        print_board(boards->buffer, boards->nrows, boards->ncols, boards->gen);
+		clear_screen();
+		print_board(boards->buffer, boards->nrows, boards->ncols, boards->gen);
 
-        printf("cmd(d filename, s [#], n [#], q) : ");
-        fflush(stdout);
+		printf("cmd(d filename, s [#], n [#], q) : ");
+		fflush(stdout);
 
-        fgets(ibuf, ibuf_size, stdin);
-        fflush(stdout);
+		fgets(ibuf, ibuf_size, stdin);
+		fflush(stdout);
 
-        if (ibuf[0] == 'q') {
-            done = true;
-            break;
-        } else if (ibuf[0] == 's') {
-            sscanf(ibuf, "%*s %d", &quanta);
-            step_size = 1;
-        } else if (ibuf[0] == 'n') {
-            sscanf(ibuf, "%*s %d", &quanta);
-            step_size = quanta;
-        } else if (ibuf[0] == 'd') {
-            char dump[ibuf_size];
-            sscanf(ibuf, "%*s %s", dump);
-            dump_board(boards->buffer, boards->nrows, boards->ncols, dump);
-            continue;
-        }
+		if (ibuf[0] == 'q') {
+			done = true;
+			break;
+		} else if (ibuf[0] == 's') {
+			sscanf(ibuf, "%*s %d", &quanta);
+			step_size = 1;
+		} else if (ibuf[0] == 'n') {
+			sscanf(ibuf, "%*s %d", &quanta);
+			step_size = quanta;
+		} else if (ibuf[0] == 'd') {
+			char dump[ibuf_size];
+			sscanf(ibuf, "%*s %s", dump);
+			dump_board(boards->buffer, boards->nrows, boards->ncols, dump);
+			continue;
+		}
 
-        /**
-         * main simulation loop
-         *   simulate for quanta steps, display every step_size
-         */
-        clear_screen();
-        for (int i = 0; i < quanta; i += step_size) {
-            start_meas();
-            sim_loop(boards, step_size);
-            stop_meas();
-            printf("speed gen/s = %08.2f  gen = %10d\n", (double)step_size / get_secs(),
-                   boards->gen);
-            fflush(stdout);
-            print_board(boards->buffer, boards->nrows, boards->ncols, boards->gen);
-        }
-        clear_screen();
-        print_board(boards->buffer, boards->nrows, boards->ncols, boards->gen);
-        fflush(stdout);
-    }
+		/**
+		 * main simulation loop
+		 *   simulate for quanta steps, display every step_size
+		 */
+		clear_screen();
+		for (int i = 0; i < quanta; i += step_size) {
+			start_meas();
+			sim_loop(boards, step_size);
+			stop_meas();
+			printf(
+				"speed gen/s = %08.2f  gen = %10d\n", (double) step_size / get_secs(), boards->gen);
+			fflush(stdout);
+			print_board(boards->buffer, boards->nrows, boards->ncols, boards->gen);
+		}
+		clear_screen();
+		print_board(boards->buffer, boards->nrows, boards->ncols, boards->gen);
+		fflush(stdout);
+	}
 
-    delete_board(&boards);
-    assert(boards == NULL);
+	delete_board(&boards);
+	assert(boards == NULL);
 
-    return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }
