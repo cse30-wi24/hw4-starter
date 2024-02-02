@@ -1,8 +1,5 @@
 #include "sim.h"
 
-#define C_IMPL
-extern void asm_do_row(Cell *, Cell *, size_t, size_t, size_t);
-
 /**
  * gets x mod N (works for negative numbers as well! Use this instead of %)
  */
