@@ -57,7 +57,7 @@ int main(int argc, char **argv) {
 		exit(EXIT_FAILURE);
 	}
 
-	printf("simulating life board %u rows %u cols\n", boards->nrows, boards->ncols);
+	printf("simulating life board %zu rows %zu cols\n", boards->nrows, boards->ncols);
 	fflush(stdout);
 
 	bool done = false;
